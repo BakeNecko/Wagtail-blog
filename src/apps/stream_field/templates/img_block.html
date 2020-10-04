@@ -1,0 +1,13 @@
+<!--IMG Block-->
+{% load static wagtailimages_tags %}
+<section class="image-caption-block py-3">
+    {% image value.img max-1920x1080 as user_img %}
+        <a href="{{ user_img.url }}" target="_blank">
+            <picture>
+                <source srcset="{{ user_img.url }}" class="post-card-small__img" type="image/webp">
+                <img class="post-card-small__img" src="{{ user_img.url }}" alt="{{ user_img.alt }}">
+            </picture>
+        </a>
+    <small class="text-center d-block mt-2">{{ value.img_description.img_description }}</small>
+</section>
+<!---->

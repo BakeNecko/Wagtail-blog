@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% load static wagtailimages_tags  wagtailcore_tags %}
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block content %}
+    <!-- Banner Highlight Block -->
+    <div class="banner home-banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7 banner-left">
+                    {#  TODO: Добавить эти h1 и p В models.py #}
+                    <h1 data-scroll="" class="banner-title">{{ page.heading_title }}<span class="dash-accent"></span></h1>
+                    <p class="lead">{{ page.heading_description }}</p>
+                    <div class="banner-angle">
+                        <img src="static/img/banner-angle-left.31d22eeaa438.svg" alt="">
+                    </div>
+                </div>
+                <div class="col-lg-5 banner-right">
+                    <div>
+                        <a class="btn btn-dark btn--arrow" href="{{ tutorials_list_page.url  }}">Читать статьи</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ######## -->
+
+    <!-- Lesson Highlight Block -->
+    <section class="featured-post-section basic-section">
+        <div class="container">
+            <div class="heading-block">
+                <span class="heading-block__heading splitting-small" data-scroll>Новый Пост!</span>
+                <a class="btn btn-default btn--arrow text-uppercase" style="float: left;" href="{{ tutorials_list_page.url }}">ВСЕ ПОСТЫ</a>
+            </div>
+            <a class="featured-post" href="{{ latest_posts.url }}">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div>
+                            <h2 class="featured-post__title">
+                                {{ latest_posts.title }}
+                            </h2>
+                        </div>
+                        <span class="featured-post__date">{{ latest_posts.created_at|date:"M d, Y"  }}</span>
+                        <p class="featured-post__description">
+                        </p>
+                        <span class="featured-post__author">Posted By: {{ latest_posts.owner }}</span>
+                    </div>
+                    <div class="col-md-6">
+                        {% image latest_posts.blog_preview_image fill-573x369 as preview_img %}
+                        <picture>
+                            <source srcset="{{ preview_img.url  }}"
+                                    style="width: 100%; height: auto;" type="image/webp">
+                            <img src="{{ preview_img.url  }}"
+                                 style="width: 100%; height: auto;" alt="video image">
+                        </picture>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- End Lesson Highlight Block -->
+
+
+    <section class="basic-section featured-posts">
+        <div class="container">
+            <div class="heading-block">
+                <span class="heading-block__heading splitting-small" data-scroll>Популярные посты</span>
+            </div>
+            <div class="row">
+                {% for post in posts %}
+                    <div class="col-lg-4">
+                        <a class="post-card-small mb-5"
+                           href="{{ post.url }}">
+                            {% image post.blog_preview_image fill-573x369 as preview_img %}
+                            <picture>
+                                <source srcset="{{ preview_img.url }}"
+                                        class="post-card-small__img" type="image/webp">
+                                <img class="post-card-small__img"
+                                     src="{{ preview_img.url }}"
+                                     alt="{{ preview_img.alt }}">
+                                </picture>
+                                <span class="post-card-small__date mb-0">{{ post.created_at|date:"M d, Y" }}</span>
+                                <small class="d-block mb-3 text-dark ">
+                                    Длина прочтения: {{ post.read_length }} минут
+                                </small>
+                                <h4 class="post-card-small__title">{{ post.title }}</h4>
+                                <span class="btn btn-outline-dark btn--arrow">
+                                Прочитать пост
+                            </span>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+    </section>
+
+    <!-- Lesson Highlight Block -->
+    <section class="featured-post-section basic-section">
+        <div class="container">
+            <div class="heading-block">
+                <span class="heading-block__heading splitting-small" data-scroll>Новый Пост!</span>
+                <a class="btn btn-default btn--arrow text-uppercase" href="{{ tutorials_list_page.url }}">Все посты</a>
+            </div>
+            <a class="featured-post"  href="{{ most_popular_post.url }}">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div>
+                            <h2 class="featured-post__title">
+                                {{ most_popular_post.title }}
+                            </h2>
+                        </div>
+
+                        <span class="featured-post__date">{{ most_popular_post.created_at|date:"M d, Y" }}</span>
+
+                        <p class="featured-post__description">
+                            {{ most_popular_post.description }}
+                        </p>
+                        <span class="featured-post__author">Posted By: {{ most_popular_post.owner }}</span>
+                    </div>
+                    <div class="col-md-6">
+                        {% image latest_posts.blog_preview_image fill-573x369 as preview_img %}
+                        <picture>
+                            <source srcset="{{ preview_img.url }}"
+                                    style="width: 100%; height: auto;" type="image/webp">
+                            <img src="{{ preview_img.url }}"
+                                 style="width: 100%; height: auto;" alt="{{ preview_img.title }}">
+                        </picture>
+
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+{% endblock content %}

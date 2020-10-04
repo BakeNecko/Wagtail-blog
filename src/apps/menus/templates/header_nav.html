@@ -1,0 +1,60 @@
+{% load static menus_tags %}
+
+{% get_menu "main" as navigation %}
+
+<nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container">
+        <a class="navbar-brand" href="{{ home_page_url }}">
+          Django <span class="brand-text-color">Blog</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse hidden-md justify-content-end">
+            <ul class="navbar-nav ml-auto hidden-md">
+                {% for item in navigation.menu_items.all %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ item.link }}" {% if item.open_in_new_tab %} target="_blank"{% endif %}>
+                            {{ item.title }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+            <form action="#" class="search-box" style="display: none; width: 0;">
+                <input type="search" class="form-control" name="q" placeholder="Введите, ваш запрос и нажмите enter" style="width: 100%;">
+            </form>
+            <a id="close-search" href="#" style="display: none;">
+                <svg class="close-icon">
+                    <use href="#close-icon"></use>
+                </svg>
+            </a>
+            <a id="search-link" class="search-link" href="#">
+                <svg class="search-icon">
+                    <use href="#search">
+                    </use>
+                </svg>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<div class="mobile-nav">
+    <div class="mobile-nav__inner container">
+        <button type="button" class="close" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+        <ul class="navbar-nav">
+            {% for item in navigation.menu_items.all %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ item.link }}" {% if item.open_in_new_tab %} target="_blank"{% endif %}>
+                        {{ item.title }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+        <form class="text-left w-100 mt-3" method="GET" action="#">
+            <label class="control-label" for="#mobile-search">Search</label>
+            <input id="mobile-search" name="q" type="search" class="form-control" placeholder="Введите, ваш запрос и нажмите enter">
+        </form>
+    </div>
+</div>

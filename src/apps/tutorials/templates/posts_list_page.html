@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+{% load wagtailroutablepage_tags %}
+{% load static wagtailimages_tags wagtailroutablepage_tags cache%}
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block content %}
+
+<div class="banner inner-banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 banner-left">
+                <h1 class="banner-title">{{ page.title }}<span class="dash-accent"></span></h1>
+                <p class="lead">
+                    {{ page.header_title_description }}
+                </p>
+                <div class="form-group mt-3">
+                    <label class="control-label" for="category-select">Выберите категорию</label>
+                    <select name="category-select" id="category-select" class="form-control col-md-4" onchange="location = this.value;">
+                        <option value="{{ base_url }}" {% if selected_category == None %}selected="selected"{% endif %}>
+                            All Categories
+                        </option>
+                        {% for category in categories %}
+                            <option value="{% routablepageurl page 'category_view' category.slug %}"
+                                {% if selected_category.slug == category.slug %}selected="selected"{% endif %}>
+                                {{ category.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="banner-angle">
+                    <img src="{{ self.sub_banner_angle_img.url }}" alt="Banner Angle Accent">
+{#                    <img src="{{ banner_angle_img.url }}" alt="{{ banner_angle_img.alt }}" class="src">#}
+                </div>
+            </div>
+            {% image self.banner_angle_img fill-573x369 as banner_angle_img %}
+                <div class="col-lg-5 banner-right"
+                     style='background-image: url("{{ banner_angle_img.url }}"); background-size: cover; background-repeat: no-repeat; background-position: center right;'></div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<section class="featured-post-section basic-section">
+    <div class="container">
+        <div class="heading-block">
+            <span class="heading-block__heading splitting-small">Рекомендуемый пост</span>
+        </div>
+        <a class="featured-post" href="{{ featured_post.url }}">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div>
+                        <h2 class="featured-post__title">
+                            {{ featured_post.title }}
+                        </h2>
+                    </div>
+                    <span class="featured-post__date">{{ featured_post.created_at|date:"M d, Y" }}</span>
+                    <p class="featured-post__description">
+                        {{ featured_post.description }}
+                    </p>
+                    <span class="featured-post__author">Posted By: {{ featured_post.owner }}</span>
+                </div>
+                <div class="col-md-6">
+                    {% image featured_post.blog_preview_image fill-573x369 as preview_img %}
+                    <picture>
+                        <source srcset="{{ preview_img.url }}"
+                                style='width: 100%; height: auto;' type="image/webp">
+                        <img src="{{ preview_img.url }}"
+                             style='width: 100%; height: auto;' alt="{{ preview_img.alt }}">
+                    </picture>
+                </div>
+            </div>
+        </a>
+    </div>
+</section>
+
+
+<section class="basic-section featured-posts pb-0 mb-5 mt-0 pt-0">
+    <div class="container">
+        <div class="heading-block">
+            <span class="heading-block__heading splitting-small">All Lessons </span>
+        </div>
+        <div class="row">
+        {% for post in blog_post_list %}
+            <div class="col-lg-4">
+            {% image post.blog_preview_image fill-573x369 as preview_img %}
+                    <a class="post-card-small mb-5" href="{{ post.url }}">
+                        <picture>
+                            <source srcset="{{ preview_img.url }}"
+                                    class="post-card-small__img" type="image/webp">
+                            <img class="post-card-small__img"
+                                 src="{{ preview_img.url }}"
+                                 alt="{{ preview_img.alt }}">
+                        </picture>
+                        <span class="post-card-small__date mb-0">{{ post.created_at|date:"M d, Y" }}</span>
+                        <small class="d-block mb-3 text-dark ">
+                            Время чтения: {{ post.read_length }} мин
+                        </small>
+{#                        <span class="featured-post__author">Posted By: {{ post.owner }}</span>#}
+                        <h4 class="post-card-small__title">{{ post.title }}</h4>
+                        <span class="btn btn-outline-dark btn--arrow">Читать</span>
+                    </a>
+                </div>
+        {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+<nav aria-label="Page navigation">
+    <div class="container">
+        <ul class="pagination justify-content-center">
+            <li class="page-item  active">
+                <a href="index.html%3Fpage=1.html" class="page-link">
+                    1
+                </a>
+            </li>
+            <li class="page-item ">
+                <a href="index.html%3Fpage=2.html" class="page-link">
+                    2
+                </a>
+            </li>
+            <li class="page-item ">
+                <a href="index.html%3Fpage=3.html" class="page-link">
+                    3
+                </a>
+            </li>
+            <li class="page-item ">
+                <a href="index.html%3Fpage=4.html" class="page-link">
+                    4
+                </a>
+            </li>
+            <li class="page-item ">
+                <a href="index.html%3Fpage=5.html" class="page-link">
+                    5
+                </a>
+            </li>
+            <li class="page-item">
+                <a href="index.html%3Fpage=6.html" class="page-link">
+                    &hellip;
+                </a>
+            </li>
+            <li class="page-item">
+                <a href="index.html%3Fpage=2.html" class="page-link next-page">
+                    <span>Next Page</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<script type="text/javascript" src='/static/js/highlight.pack.js'></script>
+<script>hljs.initHighlightingOnLoad();</script>
+{% endblock content %}
