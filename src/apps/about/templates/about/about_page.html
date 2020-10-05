@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static wagtailimages_tags  wagtailcore_tags %}
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block content %}
+    <h1>{{ page.banner_angle_img.url }}</h1>
+    <div class="banner inner-banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7 banner-left">
+                    <h1 class="banner-title">{{ self.heading_title }}<span class="dash-accent"></span></h1>
+                    <div class="banner-angle">
+                        {% image self.sub_banner_angle_img max-1920x1080 as sub_banner_angle_img %}
+                        <img src="{{ sub_banner_angle_img.url }}" alt="{{ sub_banner_angle_img.alt }}">
+                    </div>
+                </div>
+                {% image self.banner_angle_img fill-573x369 as banner_angle_img %}
+                <div class="col-lg-5 banner-right"
+                     style='background-image: url("{{ banner_angle_img.url }}"); background-size: cover; background-repeat: no-repeat; background-position: center right;'></div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <section class="basic-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    {% for block in page.body_block %}
+                        {% include_block block %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock content %}

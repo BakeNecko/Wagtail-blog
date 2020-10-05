@@ -29,8 +29,8 @@
                     </select>
                 </div>
                 <div class="banner-angle">
-                    <img src="{{ self.sub_banner_angle_img.url }}" alt="Banner Angle Accent">
-{#                    <img src="{{ banner_angle_img.url }}" alt="{{ banner_angle_img.alt }}" class="src">#}
+                    {% image self.sub_banner_angle_img max-1920x1080 as sub_banner_angle_img %}
+                    <img src="{{ sub_banner_angle_img.url }}" alt="{{ sub_banner_angle_img.alt }}">
                 </div>
             </div>
             {% image self.banner_angle_img fill-573x369 as banner_angle_img %}
@@ -41,9 +41,9 @@
 </div>
 </div>
 
-
 <section class="featured-post-section basic-section">
     <div class="container">
+        {% if featured_post != None %}
         <div class="heading-block">
             <span class="heading-block__heading splitting-small">Рекомендуемый пост</span>
         </div>
@@ -72,6 +72,7 @@
                 </div>
             </div>
         </a>
+        {% endif %}
     </div>
 </section>
 
@@ -79,7 +80,17 @@
 <section class="basic-section featured-posts pb-0 mb-5 mt-0 pt-0">
     <div class="container">
         <div class="heading-block">
-            <span class="heading-block__heading splitting-small">All Lessons </span>
+            <span class="heading-block__heading splitting-small">
+                {% if blog_post_list|length  == 0 %}
+                    В эту категрию еще не завезли постов :(
+                {% else %}
+                    {% if selected_category %}
+                        Все посты по категории:  {{ selected_category.name }}
+                    {% else %}
+                        Все посты:
+                    {% endif %}
+                {% endif %}
+            </span>
         </div>
         <div class="row">
         {% for post in blog_post_list %}
@@ -109,45 +120,45 @@
 
 
 <nav aria-label="Page navigation">
-    <div class="container">
-        <ul class="pagination justify-content-center">
-            <li class="page-item  active">
-                <a href="index.html%3Fpage=1.html" class="page-link">
-                    1
-                </a>
-            </li>
-            <li class="page-item ">
-                <a href="index.html%3Fpage=2.html" class="page-link">
-                    2
-                </a>
-            </li>
-            <li class="page-item ">
-                <a href="index.html%3Fpage=3.html" class="page-link">
-                    3
-                </a>
-            </li>
-            <li class="page-item ">
-                <a href="index.html%3Fpage=4.html" class="page-link">
-                    4
-                </a>
-            </li>
-            <li class="page-item ">
-                <a href="index.html%3Fpage=5.html" class="page-link">
-                    5
-                </a>
-            </li>
-            <li class="page-item">
-                <a href="index.html%3Fpage=6.html" class="page-link">
-                    &hellip;
-                </a>
-            </li>
-            <li class="page-item">
-                <a href="index.html%3Fpage=2.html" class="page-link next-page">
-                    <span>Next Page</span>
-                </a>
-            </li>
-        </ul>
-    </div>
+      {% if posts.paginator.num_pages > 1 %}
+        <div class="container">
+            <ul class="pagination justify-content-center">
+                {% if posts.has_previous %}
+                  <li class="page-item">
+                    <a href="?page={{ posts.previous_page_number }}" class="page-link">
+                      <span>&laquo;</span>
+                    </a>
+                  </li>
+                {% endif %}
+
+                {% for page_num in posts.paginator.page_range %}
+                  <li class="page-item {% if page_num == posts.number %} active{% endif %}">
+                    <a href="?page={{ page_num }}" class="page-link">
+                      {{ page_num }}
+                    </a>
+                  </li>
+                {% endfor %}
+
+                {% if posts.has_next %}
+                  <li class="page-item">
+                    <a href="?page={{ posts.next_page_number }}" class="page-link">
+                      <span>&raquo;</span>
+                    </a>
+                  </li>
+                {% endif %}
+{#                <li class="page-item  active">#}
+{#                    <a href="index.html%3Fpage=1.html" class="page-link">#}
+{#                        1#}
+{#                    </a>#}
+{#                </li>#}
+{#                <li class="page-item ">#}
+{#                    <a href="index.html%3Fpage=2.html" class="page-link">#}
+{#                        2#}
+{#                    </a>#}
+{#                </li>#}
+            </ul>
+        </div>
+      {% endif %}
 </nav>
 
 <script type="text/javascript" src='/static/js/highlight.pack.js'></script>

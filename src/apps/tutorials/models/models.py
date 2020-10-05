@@ -1,11 +1,12 @@
 """ Страницы статей Блога. """
 from django import forms
 from django.db import models
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import render
 from modelcluster.fields import ParentalManyToManyField
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
 from wagtail.admin.edit_handlers import StreamFieldPanel
-from wagtail.contrib.routable_page.models import RoutablePageMixin, route
+from wagtail.contrib.routable_page.models import route
 from wagtail.core.fields import StreamField
 from wagtail.core.models import Page
 from wagtail.images.edit_handlers import ImageChooserPanel
@@ -35,10 +36,13 @@ class BlogListPage(BlogBasePage):
         blank=False,
         on_delete=models.SET_NULL
     )
-    sub_banner_angle_img = models.FileField(
-        upload_to='svg',
+    sub_banner_angle_img = models.ForeignKey(
+        'wagtailimages.Image',
+        related_name='sub_banner_angle_img',
         null=True,
-        blank=False
+        help_text='Мелкаий треугольник возле главного банера',
+        blank=False,
+        on_delete=models.SET_NULL
     )
 
     created_at = models.DateTimeField('Создан', auto_now_add=True)
@@ -47,7 +51,7 @@ class BlogListPage(BlogBasePage):
     content_panels = Page.content_panels + [
         FieldPanel("header_title"),
         FieldPanel("header_title_description"),
-        FieldPanel('sub_banner_angle_img'),
+        ImageChooserPanel('sub_banner_angle_img'),
         ImageChooserPanel('banner_angle_img'),
     ]
 
@@ -57,13 +61,34 @@ class BlogListPage(BlogBasePage):
         verbose_name = "Список Постов"
         verbose_name_plural = "Список Постов"
 
-    def get_context(self, request, *args, **kwargs):
+    def get_context(self, request, queryset=None, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        context['blog_post_list'] = BlogPostPage.objects.all().live().public()
-        context['featured_post'] = BlogPostPage.objects.live().public().last()
         context["categories"] = BlogCategory.objects.all()
         context['selected_category'] = None
         context['base_url'] = self.url
+        if queryset is None:
+            all_posts = BlogPostPage.objects.live().public().order_by('-created_at')
+        else:
+            all_posts = queryset
+        last_post = all_posts.last()
+        if last_post is not None:
+            all_posts = all_posts.exclude(id=last_post.id)
+        paginator = Paginator(all_posts, 3)
+        page = request.GET.get("page")
+        try:
+            # If the page exists and the ?page=x is an int
+            posts = paginator.page(page)
+        except PageNotAnInteger:
+            # If the ?page=x is not an int; show the first page
+            posts = paginator.page(1)
+        except EmptyPage:
+            # If the ?page=x is out of range (too high most likely)
+            # Then return the last page
+            posts = paginator.page(paginator.num_pages)
+        context["blog_post_list"] = posts.object_list
+        context['featured_post'] = last_post
+        context['posts'] = posts
+        context['selected_category'] = None
         return context
 
     @route(r"^year/(\d+)/(\d+)/$", name="posts_by_year")
@@ -74,7 +99,6 @@ class BlogListPage(BlogBasePage):
     @route(r"^category/(?P<cat_slug>[-\w]*)/$", name="category_view")
     def category_view(self, request, cat_slug):
         """Find blog posts based on a category."""
-        context = self.get_context(request)
         try:
             # Look for the blog category by its slug.
             category = BlogCategory.objects.get(slug=cat_slug)
@@ -89,8 +113,7 @@ class BlogListPage(BlogBasePage):
             # Or redirect the user to /blog/ ¯\_(ツ)_/¯
             pass
         queryset = BlogPostPage.objects.live().public().filter(categories__in=[category])
-        context["blog_post_list"] = queryset
-        context['featured_post'] = queryset.last()
+        context = self.get_context(request, queryset=queryset)
         context['selected_category'] = category
         # Note: The below template (latest_posts.html) will need to be adjusted
         return render(request, self.template, context)
@@ -128,6 +151,7 @@ class BlogPostPage(BlogBasePage):
     parent_page_types = ['tutorials.BlogListPage']
 
     content_panels = Page.content_panels + [
+        FieldPanel("post_title"),
         FieldPanel("description"),
         MultiFieldPanel(
             [

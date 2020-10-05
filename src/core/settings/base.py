@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'apps.menus',
     'apps.tutorials',
     'apps.stream_field',
+    'apps.about',
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
