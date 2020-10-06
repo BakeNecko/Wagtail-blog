@@ -1,38 +1,69 @@
 {% extends "base.html" %}
-{% load static wagtailcore_tags %}
+{% load static wagtailimages_tags wagtailroutablepage_tags wagtailuserbar wagtailcore_tags cache menus_tags  %}
 
 {% block body_class %}template-searchresults{% endblock %}
 
 {% block title %}Search{% endblock %}
 
 {% block content %}
-    <h1>Search</h1>
-
-    <form action="{% url 'search' %}" method="get">
-        <input type="text" name="query"{% if search_query %} value="{{ search_query }}"{% endif %}>
-        <input type="submit" value="Search" class="button">
-    </form>
-
-    {% if search_results %}
-        <ul>
-            {% for result in search_results %}
-                <li>
-                    <h4><a href="{% pageurl result %}">{{ result }}</a></h4>
-                    {% if result.search_description %}
-                        {{ result.search_description }}
+    <div class="banner home-banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7 banner-left">
+                    <h1 class="banner-title">Результаты поиска:</h1>
+                    {% if search_query != None %}
+                        <p class="lead">Ваш запрос: <strong>{{ search_query }}</strong></p>
+                    {% else %}
+                        <p class="lead">Вы ничего не ищете</p>
                     {% endif %}
-                </li>
-            {% endfor %}
-        </ul>
 
-        {% if search_results.has_previous %}
-            <a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.previous_page_number }}">Previous</a>
-        {% endif %}
-
-        {% if search_results.has_next %}
-            <a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}">Next</a>
-        {% endif %}
-    {% elif search_query %}
-        No results found
-    {% endif %}
+                    <div class="banner-angle">
+                        <img src="../static/img/banner-angle-left.31d22eeaa438.svg" alt="">
+                    </div>
+                </div>
+                <div class="col-lg-5 banner-right">
+                    {#                    <div>#}
+                    {#                        <a class="btn btn-dark" href="https://docs.wagtail.io/" target="_blank">#}
+                    {#                            Open Wagtail Docs#}
+                    {#                        </a>#}
+                    {#                    </div>#}
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="basic-section featured-posts">
+        <div class="container">
+            <div class="heading-block">
+                <span class="heading-block__heading">Найденно постов: ({{ search_results|length }})</span>
+                <a class="btn btn-default btn--arrow" href="{% home_page_url %}">Все посты</a>
+            </div>
+            <div class="row">
+                {% if search_results %}
+                    {% for result in search_results %}
+                        <div class="col-lg-4">
+                            <a class="post-card-small mb-5"
+                               href="{% pageurl result %}">
+                                {% image result.blog_preview_image fill-573x369 as preview_img %}
+                                <picture>
+                                    <source srcset="{{ preview_img.url }}"
+                                            class="post-card-small__img" type="image/webp">
+                                    <img class="post-card-small__img"
+                                         src="{{ preview_img.url }}"
+                                         alt="{{ preview_img.alt }}">
+                                </picture>
+                                <span class="post-card-small__date mb-0">{{ result.created_at|date:"M d, Y" }}</span>
+                                <small class="d-block mb-3 text-dark ">
+                                    Длина чтения: {{ result.read_length }} мин
+                                </small>
+                                <h4 class="post-card-small__title">{{ result.post_title }}</h4>
+                                <span class="btn btn-outline-dark btn--arrow">
+                                    Читать
+                                </span>
+                            </a>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </section>
 {% endblock %}

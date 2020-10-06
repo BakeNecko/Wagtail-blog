@@ -4,7 +4,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
-        <a class="navbar-brand" href="{{ home_page_url }}">
+        <a class="navbar-brand" href="{% home_page_url %}">
           Django <span class="brand-text-color">Blog</span>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,8 +20,9 @@
                     </li>
                 {% endfor %}
             </ul>
-            <form action="#" class="search-box" style="display: none; width: 0;">
-                <input type="search" class="form-control" name="q" placeholder="Введите, ваш запрос и нажмите enter" style="width: 100%;">
+            <form action="{% url 'search' %}" method="get" class="search-box" style="display: none; width: 0;">
+                <input type="search" class="form-control" name="query"{% if search_query %}
+                       value="{{ search_query }}"{% endif %} placeholder="Введите, ваш запрос и нажмите enter" style="width: 100%;">
             </form>
             <a id="close-search" href="#" style="display: none;">
                 <svg class="close-icon">
@@ -52,9 +53,10 @@
                 </li>
             {% endfor %}
         </ul>
-        <form class="text-left w-100 mt-3" method="GET" action="#">
-            <label class="control-label" for="#mobile-search">Search</label>
-            <input id="mobile-search" name="q" type="search" class="form-control" placeholder="Введите, ваш запрос и нажмите enter">
+        <form class="text-left w-100 mt-3" action="{% url 'search' %}" method="get" >
+            <label class="control-label" for="#mobile-search">Поиск</label>
+            <input type="search" class="form-control" name="query"{% if search_query %}
+                       value="{{ search_query }}"{% endif %} placeholder="Введите, ваш запрос и нажмите enter" style="width: 100%;">
         </form>
     </div>
 </div>

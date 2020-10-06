@@ -45,9 +45,8 @@ class IMGBlock(blocks.StructBlock):
         help_text = "Создать Вставку с Картинкой"
 
 
-class CodeBlock(blocks.StructBlock):
+class CodeBlock(blocks.TextBlock):
     """ Блок с куском кода """
-    code_text = blocks.RichTextBlock(required=True)
 
     class Meta:
         template = "code_block.html"

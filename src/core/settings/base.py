@@ -30,6 +30,8 @@ INSTALLED_APPS = [
     'apps.tutorials',
     'apps.stream_field',
     'apps.about',
+    'apps.wagtail_tags',
+    'apps.contact',
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
