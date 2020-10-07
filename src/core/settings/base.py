@@ -96,12 +96,37 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+if os.environ.get('DJANGO_ENV') == 'prod':
+    DATABASES = {
+        "default":
+            {
+                "ENGINE":
+                    os.environ.get("SQL_ENGINE", "django.db.backends.postgresql"),
+                "NAME":
+                    os.environ.get("POSTGRES_DB", "postgres"),
+                "USER":
+                    os.environ.get("POSTGRES_USER", "postgres"),
+                "PASSWORD":
+                    os.environ.get("POSTGRES_PASSWORD", "postgres"),
+                "HOST":
+                    os.environ.get("SQL_HOST", "db"),
+                "PORT":
+                    os.environ.get("SQL_PORT", "5432"),
+                "ATOMIC_REQUESTS":
+                    True,
+                "CONN_MAX_AGE":
+                    60,
+            }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
+
+
 
 
 # Password validation
@@ -148,6 +173,37 @@ STATICFILES_FINDERS = [
 STATICFILES_DIRS = [
     os.path.join(PROJECT_DIR, 'static'),
 ]
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs', 'debug.log'),
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'WARNING',
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+            'propagate': False,
+        },
+        'file_logger': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
 
 # ManifestStaticFilesStorage is recommended in production, to prevent outdated
 # Javascript / CSS assets being served from cache (e.g. after a Wagtail upgrade).
