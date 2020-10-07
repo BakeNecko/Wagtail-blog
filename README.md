@@ -13,9 +13,9 @@
 1. Добавление Статей - Есть
 2. Редактирование Страниц - Есть
 3. Пагинация, теги для статей и поиск по тегам - Есть
-4. Поиск статей в search в nav - Нет
-4. Postgres - не подключен и не развернут
-5. Docker - Почти нет
+4. Поиск статей в search в nav - Есть
+4. Postgres - подключен и развернут
+5. Docker - Есть
 
 **Как развернуть? (Без Докера)**
 ```bash
@@ -24,4 +24,9 @@ sourse venv/bin/active
 pip3 install -r requirements.txt
 cd src
 python3 mange.py makemigrations && python3 manage.py migrate && python3 manage.py runserver
+```
+**С Докером**
+```bash
+make prod  # Фоновый режим
+make run # Консольный режим
 ```
