@@ -1,10 +1,11 @@
 from .base import *
+import os
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', True)
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'qvy!3u=9!gifo2!^*jrwb$t63w1++n0ph6ve4r)+w&cxraw$4%'
+SECRET_KEY = os.getenv('SECRET_KEY', '%ys_j&dhjy*m+&9f+wp7slky*0k88%rr0l=_30*wq_fd22mnjj')
 
 # SECURITY WARNING: define the correct hosts in production!
 ALLOWED_HOSTS = ['*'] 

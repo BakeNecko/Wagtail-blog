@@ -31,6 +31,9 @@ migrate:
 	docker-compose -f docker-compose.prod.yml exec web python manage.py makemigrations && \
 	docker-compose -f docker-compose.prod.yml exec web python manage.py migrate
 
+createsuperuser:
+	docker-compose -f docker-compose.prod.yml exec web python manage.py createsuperuser
+
 shell:
 	docker-compose -f docker-compose.prod.yml exec web python manage.py shell
 

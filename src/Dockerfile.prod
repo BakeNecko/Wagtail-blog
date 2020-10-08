@@ -44,5 +44,8 @@ RUN pip install -r requirements.txt
 # copy project
 COPY . /usr/src/app/
 
+# create logs folder
+RUN mkdir -p /user/src/app/logs/debug.log
+
 # migrate
 ENTRYPOINT ["sh", "/usr/src/app/entrypoint.prod.sh"]
