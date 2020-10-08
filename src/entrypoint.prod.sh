@@ -14,5 +14,6 @@ fi
 python manage.py makemigrations
 python manage.py migrate
 python manage.py collectstatic --no-input
-chmod -R 777 staticfiles
+
+chmod -R 777 static
 exec "$@"

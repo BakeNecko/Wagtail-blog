@@ -15,12 +15,11 @@ urlpatterns = [
     url(r'^documents/', include(wagtaildocs_urls)),
 
     url(r'^search/$', search_views.search, name='search'),
-
 ]
 
 
 if settings.DEBUG:
-    from django.conf.urls.static import static
+    from django.cosnf.urls.static import static
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
     # Serve static and media files from development server
