@@ -1,6 +1,6 @@
 from .base import *
 
-DEBUG = False
+DEBUG = bool(int(os.getenv('DEBUG', True)))
 
 try:
     from .local import *
