@@ -176,11 +176,6 @@ LOGGING = {
         'console': {
             'class': 'logging.StreamHandler',
         },
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_DIR, 'logs', 'debug.log'),
-        },
     },
     'root': {
         'handlers': ['console'],
@@ -191,11 +186,6 @@ LOGGING = {
             'handlers': ['console'],
             'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
             'propagate': False,
-        },
-        'file_logger': {
-            'handlers': ['file'],
-            'level': 'DEBUG',
-            'propagate': True,
         },
     },
 }
