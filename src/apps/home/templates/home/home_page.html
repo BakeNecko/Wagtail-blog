@@ -9,7 +9,6 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-7 banner-left">
-                    {#  TODO: Добавить эти h1 и p В models.py #}
                     <h1 data-scroll="" class="banner-title">{{ page.heading_title }}<span class="dash-accent"></span></h1>
                     <p class="lead">{{ page.heading_description }}</p>
                     <div class="banner-angle">
@@ -38,8 +37,11 @@
                     <div class="col-md-6">
                         <div>
                             <h2 class="featured-post__title">
-                                {{ latest_posts.title }}
+                                {{ latest_posts.post_title }}
                             </h2>
+                            <p class="featured-post__description">
+                                {{ latest_posts.description }}
+                            </p>
                         </div>
                         <span class="featured-post__date">{{ latest_posts.created_at|date:"M d, Y"  }}</span>
                         <p class="featured-post__description">
@@ -52,7 +54,7 @@
                             <source srcset="{{ preview_img.url  }}"
                                     style="width: 100%; height: auto;" type="image/webp">
                             <img src="{{ preview_img.url  }}"
-                                 style="width: 100%; height: auto;" alt="video image">
+                                 style="width: 100%; height: auto; border-radius: 15px;" alt="video image">
                         </picture>
                     </div>
                 </div>
@@ -79,7 +81,9 @@
                                         class="post-card-small__img" type="image/webp">
                                 <img class="post-card-small__img"
                                      src="{{ preview_img.url }}"
-                                     alt="{{ preview_img.alt }}">
+                                     alt="{{ preview_img.alt }}"
+                                     style="border-radius: 15px"
+                                >
                                 </picture>
                                 <span class="post-card-small__date mb-0">{{ post.created_at|date:"M d, Y" }}</span>
                                 <small class="d-block mb-3 text-dark ">
@@ -107,12 +111,10 @@
                     <div class="col-md-6">
                         <div>
                             <h2 class="featured-post__title">
-                                {{ most_popular_post.title }}
+                                {{ most_popular_post.post_title }}
                             </h2>
                         </div>
-
                         <span class="featured-post__date">{{ most_popular_post.created_at|date:"M d, Y" }}</span>
-
                         <p class="featured-post__description">
                             {{ most_popular_post.description }}
                         </p>
@@ -124,7 +126,7 @@
                             <source srcset="{{ preview_img.url }}"
                                     style="width: 100%; height: auto;" type="image/webp">
                             <img src="{{ preview_img.url }}"
-                                 style="width: 100%; height: auto;" alt="{{ preview_img.title }}">
+                                 style="width: 100%; height: auto; border-radius: 15px" alt="{{ preview_img.title }}">
                         </picture>
 
                     </div>

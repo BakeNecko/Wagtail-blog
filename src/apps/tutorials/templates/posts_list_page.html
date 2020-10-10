@@ -10,7 +10,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-7 banner-left">
-                <h1 class="banner-title">{{ page.title }}<span class="dash-accent"></span></h1>
+                <h1 class="banner-title">{{ page.header_title }}<span class="dash-accent"></span></h1>
                 <p class="lead">
                     {{ page.header_title_description }}
                 </p>
@@ -30,7 +30,7 @@
                 </div>
                 <div class="banner-angle">
                     {% image self.sub_banner_angle_img max-1920x1080 as sub_banner_angle_img %}
-                    <img src="{{ sub_banner_angle_img.url }}" alt="{{ sub_banner_angle_img.alt }}">
+                    <img src="{{ sub_banner_angle_img.url }}" alt="{{ sub_banner_angle_img.alt }}" style="border-radius: 15px;">
                 </div>
             </div>
             {% image self.banner_angle_img fill-573x369 as banner_angle_img %}
@@ -67,7 +67,7 @@
                         <source srcset="{{ preview_img.url }}"
                                 style='width: 100%; height: auto;' type="image/webp">
                         <img src="{{ preview_img.url }}"
-                             style='width: 100%; height: auto;' alt="{{ preview_img.alt }}">
+                             style='width: 100%; height: auto; border-radius: 15px;' alt="{{ preview_img.alt }}">
                     </picture>
                 </div>
             </div>
@@ -102,7 +102,9 @@
                                     class="post-card-small__img" type="image/webp">
                             <img class="post-card-small__img"
                                  src="{{ preview_img.url }}"
-                                 alt="{{ preview_img.alt }}">
+                                 alt="{{ preview_img.alt }}"
+                                 style="border-radius: 15px;"
+                            >
                         </picture>
                         <span class="post-card-small__date mb-0">{{ post.created_at|date:"M d, Y" }}</span>
                         <small class="d-block mb-3 text-dark ">
