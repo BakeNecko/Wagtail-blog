@@ -100,39 +100,39 @@
     </section>
 
     <!-- Lesson Highlight Block -->
-    <section class="featured-post-section basic-section">
-        <div class="container">
-            <div class="heading-block">
-                <span class="heading-block__heading splitting-small" data-scroll>Новый Пост!</span>
-                <a class="btn btn-default btn--arrow text-uppercase" href="{{ tutorials_list_page.url }}">Все посты</a>
-            </div>
-            <a class="featured-post"  href="{{ most_popular_post.url }}">
-                <div class="row align-items-center">
-                    <div class="col-md-6">
-                        <div>
-                            <h2 class="featured-post__title">
-                                {{ most_popular_post.post_title }}
-                            </h2>
-                        </div>
-                        <span class="featured-post__date">{{ most_popular_post.created_at|date:"M d, Y" }}</span>
-                        <p class="featured-post__description">
-                            {{ most_popular_post.description }}
-                        </p>
-                        <span class="featured-post__author">Posted By: {{ most_popular_post.owner }}</span>
-                    </div>
-                    <div class="col-md-6">
-                        {% image latest_posts.blog_preview_image fill-573x369 as preview_img %}
-                        <picture>
-                            <source srcset="{{ preview_img.url }}"
-                                    style="width: 100%; height: auto;" type="image/webp">
-                            <img src="{{ preview_img.url }}"
-                                 style="width: 100%; height: auto; border-radius: 15px" alt="{{ preview_img.title }}">
-                        </picture>
+<!--    <section class="featured-post-section basic-section">-->
+<!--        <div class="container">-->
+<!--            <div class="heading-block">-->
+<!--                <span class="heading-block__heading splitting-small" data-scroll>Новый Пост!</span>-->
+<!--                <a class="btn btn-default btn&#45;&#45;arrow text-uppercase" href="{{ tutorials_list_page.url }}">Все посты</a>-->
+<!--            </div>-->
+<!--            <a class="featured-post"  href="{{ most_popular_post.url }}">-->
+<!--                <div class="row align-items-center">-->
+<!--                    <div class="col-md-6">-->
+<!--                        <div>-->
+<!--                            <h2 class="featured-post__title">-->
+<!--                                {{ most_popular_post.post_title }}-->
+<!--                            </h2>-->
+<!--                        </div>-->
+<!--                        <span class="featured-post__date">{{ most_popular_post.created_at|date:"M d, Y" }}</span>-->
+<!--                        <p class="featured-post__description">-->
+<!--                            {{ most_popular_post.description }}-->
+<!--                        </p>-->
+<!--                        <span class="featured-post__author">Posted By: {{ most_popular_post.owner }}</span>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-6">-->
+<!--                        {% image latest_posts.blog_preview_image fill-573x369 as preview_img %}-->
+<!--                        <picture>-->
+<!--                            <source srcset="{{ preview_img.url }}"-->
+<!--                                    style="width: 100%; height: auto;" type="image/webp">-->
+<!--                            <img src="{{ preview_img.url }}"-->
+<!--                                 style="width: 100%; height: auto; border-radius: 15px" alt="{{ preview_img.title }}">-->
+<!--                        </picture>-->
 
-                    </div>
-                </div>
-            </a>
-        </div>
-    </section>
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </a>-->
+<!--        </div>-->
+<!--    </section>-->
 
 {% endblock content %}

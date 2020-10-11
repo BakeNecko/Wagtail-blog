@@ -30,7 +30,7 @@ class HomePage(BlogBasePage):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         blog_posts = BlogPostPage.objects.all().live().public()
-        context["posts"] = blog_posts[:3]
+        context["posts"] = blog_posts[:6]
         context["latest_posts"] = blog_posts.last()
         context["tutorials_list_page"] = BlogListPage.objects.first()
         context["most_popular_post"] = blog_posts.first()
