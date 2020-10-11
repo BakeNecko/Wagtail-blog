@@ -172,6 +172,7 @@ class BlogPostPage(BlogBasePage):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context["categories"] = self.categories.all()
+        context["tutorials_list_page"] = BlogListPage.objects.first()
         return context
 
     @route(r"^category/(?P<cat_slug>[-\w]*)/$", name="category_view")
