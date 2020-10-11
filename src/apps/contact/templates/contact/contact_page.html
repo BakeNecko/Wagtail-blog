@@ -29,84 +29,83 @@
                     {% for block in page.body_block %}
                         {% include_block block %}
                     {% endfor %}
-                    <form action="index.html" method="POST" role="form">
-                        <input type="hidden" name="csrfmiddlewaretoken"
-                               value="eqSjYtWmkVG8mnpKKPQFsiu7jsdBSnh4Km6g6kz1OI8ku4WdenR2JxQmhU29x7sO">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label for="id_your-name">
-                                        Ваше имя
-                                        (Обязательно)
-                                    </label>
-                                    <input type="text" name="your-name" maxlength="255" class="form-control"
-                                           placeholder="Your Name" required id="id_your-name">
-                                </div>
-                            </div>
-                        </div>
+<!--                    <form action="index.html" method="POST" role="form">-->
+<!--                        <input type="hidden" name="csrfmiddlewaretoken"-->
+<!--                               value="eqSjYtWmkVG8mnpKKPQFsiu7jsdBSnh4Km6g6kz1OI8ku4WdenR2JxQmhU29x7sO">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-sm-12">-->
+<!--                                <div class="form-group">-->
+<!--                                    <label for="id_your-name">-->
+<!--                                        Ваше имя-->
+<!--                                        (Обязательно)-->
+<!--                                    </label>-->
+<!--                                    <input type="text" name="your-name" maxlength="255" class="form-control"-->
+<!--                                           placeholder="Your Name" required id="id_your-name">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
 
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label for="id_your-email">
-                                        Ваша почта
-                                        (Обязательно)
-                                    </label>
-                                    <input type="email" name="your-email" class="form-control" placeholder="Your Email"
-                                           required id="id_your-email">
-                                </div>
-                            </div>
-                        </div>
+<!--                        <div class="row">-->
+<!--                            <div class="col-sm-12">-->
+<!--                                <div class="form-group">-->
+<!--                                    <label for="id_your-email">-->
+<!--                                        Ваша почта-->
+<!--                                        (Обязательно)-->
+<!--                                    </label>-->
+<!--                                    <input type="email" name="your-email" class="form-control" placeholder="Your Email"-->
+<!--                                           required id="id_your-email">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
 
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label for="id_your-subject">
-                                        Тема вашего сообщения
-                                        (Обязательно и кратко)
-                                    </label>
-                                    <input type="text" name="your-subject" maxlength="255" class="form-control"
-                                           placeholder="Your Subject" required id="id_your-subject">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label for="id_your-message">
-                                        Собственно ваше сообщение
-                                        (Обязательно и по сути)
-                                    </label>
-                                    <textarea name="your-message" cols="40" rows="6" class="form-control"
-                                              placeholder="Your Message" required id="id_your-message">
-                                    </textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <script src="https://www.google.com/recaptcha/api.js"></script>
-                                    <script type="text/javascript">
-                                        // Submit function to be called, after reCAPTCHA was successful.
-                                        var onSubmit_a2d676a608fe4e97ae89420cd17b7049 = function (token) {
-                                            console.log("reCAPTCHA validated for 'data-widget-uuid=\"a2d676a608fe4e97ae89420cd17b7049\"'")
-                                        };
-                                    </script>
+<!--                        <div class="row">-->
+<!--                            <div class="col-sm-12">-->
+<!--                                <div class="form-group">-->
+<!--                                    <label for="id_your-subject">-->
+<!--                                        Тема вашего сообщения-->
+<!--                                        (Обязательно и кратко)-->
+<!--                                    </label>-->
+<!--                                    <input type="text" name="your-subject" maxlength="255" class="form-control"-->
+<!--                                           placeholder="Your Subject" required id="id_your-subject">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-sm-12">-->
+<!--                                <div class="form-group">-->
+<!--                                    <label for="id_your-message">-->
+<!--                                        Собственно ваше сообщение-->
+<!--                                        (Обязательно и по сути)-->
+<!--                                    </label>-->
+<!--                                    <textarea name="your-message" cols="40" rows="6" class="form-control"-->
+<!--                                              placeholder="Your Message" required id="id_your-message">-->
+<!--                                    </textarea>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-sm-12">-->
+<!--                                <div class="form-group">-->
+<!--                                    <script src="https://www.google.com/recaptcha/api.js"></script>-->
+<!--                                    <script type="text/javascript">-->
+<!--                                        // Submit function to be called, after reCAPTCHA was successful.-->
+<!--                                        var onSubmit_a2d676a608fe4e97ae89420cd17b7049 = function (token) {-->
+<!--                                            console.log("reCAPTCHA validated for 'data-widget-uuid=\"a2d676a608fe4e97ae89420cd17b7049\"'")-->
+<!--                                        };-->
+<!--                                    </script>-->
 
-                                    <div class="g-recaptcha"
-                                         data-sitekey="6LeiR4cUAAAAAAzSHeudAOV0mzHx4B3-3PJWB2Vx" class="form-control"
-                                         placeholder="" required id="id_wagtailcaptcha"
-                                         data-widget-uuid="a2d676a608fe4e97ae89420cd17b7049"
-                                         data-callback="onSubmit_a2d676a608fe4e97ae89420cd17b7049" data-size="normal"
-                                    >
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-dark">Submit</button>
-                    </form>
-
+<!--                                    <div class="g-recaptcha"-->
+<!--                                         data-sitekey="6LeiR4cUAAAAAAzSHeudAOV0mzHx4B3-3PJWB2Vx" class="form-control"-->
+<!--                                         placeholder="" required id="id_wagtailcaptcha"-->
+<!--                                         data-widget-uuid="a2d676a608fe4e97ae89420cd17b7049"-->
+<!--                                         data-callback="onSubmit_a2d676a608fe4e97ae89420cd17b7049" data-size="normal"-->
+<!--                                    >-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <button type="submit" class="btn btn-dark">Submit</button>-->
+<!--                    </form>-->
                 </div>
             </div>
         </div>
