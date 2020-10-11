@@ -12,7 +12,7 @@ def search(request):
 
     # Search
     if search_query:
-        search_results = BlogPostPage.objects.live().search(search_query)
+        search_results = BlogPostPage.objects.live().public().search(search_query)
         query = Query.get(search_query)
 
         # Record hit
