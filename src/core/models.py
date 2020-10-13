@@ -7,7 +7,7 @@ from apps.tutorials.models.djagno_models import BlogCategory
 class BlogBasePage(RoutablePageMixin, Page):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        context["categories"] = BlogCategory.objects.all()
+        context["all_categories"] = BlogCategory.objects.all()
         context['base_url'] = self.url
         return context
 
