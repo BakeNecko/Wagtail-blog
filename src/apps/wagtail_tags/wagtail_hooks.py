@@ -85,3 +85,72 @@ def register_centertext_feature(features):
     features.register_converter_rule("contentstate", feature_name, db_conversion)
 
     features.default_features.append(feature_name)
+
+
+@hooks.register("register_rich_text_features")
+def register_code_styling(features):
+    """Add the <code> to the richtext editor and page."""
+
+    feature_name = "h1"
+    type_ = "H1"
+    tag = "h1"
+
+    control = {
+        "type": type_,
+        "label": 'h1',
+        "description": "h1 Tag",
+    }
+
+    features.register_editor_plugin(
+        "draftail", feature_name, draftail_features.InlineStyleFeature(control)
+    )
+
+    db_conversion = {
+        "from_database_format": {tag: InlineStyleElementHandler(type_)},
+        "to_database_format": {
+            "style_map": {
+                type_: {
+                    "element": tag,
+                }
+            }
+        }
+    }
+
+    features.register_converter_rule("contentstate", feature_name, db_conversion)
+
+    features.default_features.append(feature_name)
+
+
+@hooks.register("register_rich_text_features")
+def register_code_styling(features):
+    """Add the <code> to the richtext editor and page."""
+
+    feature_name = "blockquote"
+    type_ = "blockquote"
+    tag = "blockquote"
+
+    control = {
+        "type": type_,
+        "label": 'Note',
+        "description": "blockquote Tag",
+    }
+
+    features.register_editor_plugin(
+        "draftail", feature_name, draftail_features.InlineStyleFeature(control)
+    )
+
+    db_conversion = {
+        "from_database_format": {tag: InlineStyleElementHandler(type_)},
+        "to_database_format": {
+            "style_map": {
+                type_: {
+                    "element": tag,
+                }
+            }
+        }
+    }
+
+    features.register_converter_rule("contentstate", feature_name, db_conversion)
+
+    features.default_features.append(feature_name)
+
