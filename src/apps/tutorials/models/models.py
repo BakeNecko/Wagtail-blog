@@ -73,7 +73,7 @@ class BlogListPage(BlogBasePage):
         last_post = all_posts.last()
         if last_post is not None:
             all_posts = all_posts.exclude(id=last_post.id)
-        paginator = Paginator(all_posts, 3)
+        paginator = Paginator(all_posts, 9)
         page = request.GET.get("page")
         try:
             # If the page exists and the ?page=x is an int
