@@ -103,11 +103,11 @@ if os.environ.get('DJANGO_ENV') == 'prod':
                 "ENGINE":
                     os.environ.get("SQL_ENGINE", "django.db.backends.postgresql"),
                 "NAME":
-                    os.environ.get("POSTGRES_DB", "postgres"),
+                    os.environ.get("POSTGRES_DB", "morozov_blog"),
                 "USER":
-                    os.environ.get("POSTGRES_USER", "postgres"),
+                    os.environ.get("POSTGRES_USER", "morozov_blog"),
                 "PASSWORD":
-                    os.environ.get("POSTGRES_PASSWORD", "postgres"),
+                    os.environ.get("POSTGRES_PASSWORD", "morozov_blog"),
                 "HOST":
                     os.environ.get("SQL_HOST", "db"),
                 "PORT":
